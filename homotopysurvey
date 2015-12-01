@@ -1,0 +1,359 @@
+% !mode::"TeX:UTF-8"
+\documentclass[a4paper,11pt,openany]{ctexart}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xltxtra}
+\usepackage{titlesec}
+%\usepackage[all]{xy}
+
+\usepackage{hyperref}
+\usepackage{colortbl}
+\usepackage{graphics}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{cd}
+
+
+\usepackage[text={150mm,195mm},centering]{geometry}
+
+\author{\kaishu \zihao{4}John F. Adams}
+\title{\heiti\zihao{-2}同伦论综述}
+\date{\kaishu \zihao{-4}译自\textit{A Survey of Homotopy-Theory}\footnote{\url{http://www.mathunion.org/ICM/ICM1966.1/Main/icm1966.1.0033.0043.ocr.pdf}}}
+
+\begin{document}
+  \maketitle
+\section{定义}
+首先，我需要告诉大家的是这个报告将是纯粹说明性的。它并非面向专家，我仅仅是试着解释什么是同伦论并告诉你它对你的工作有什么意义。
+
+我们需要一个定义：令$X$和$Y$是两个拓扑空间，$f_0,f_1$是从$X$到$Y$的两个映射，即两个连续函数，如果存在映射$f_t:X\to Y,0\leq t\leq 1$使得$f_t(x)$是关于变量$x$和$t$的连续函数（$0\leq t\leq 1,x\in X$），则我们称$f_0$\textbf{同伦于}$f_1$，记作$f_0 \sim f_1$。换句话说如果$f_0$可以连续形变为$f_1$则称$f_0$同伦于$f_1$。
+
+同伦是一个等价关系，于是从$X$到$Y$的映射可以划分成等价类。我们用$[X,Y]$表示从$X$到$Y$的映射的所有同伦等价类组成的集合。
+
+例如考虑$X$和$Y$都是单位圆$S^1$的情形，令$f:S^1\to S^1$是连续函数，当$x$沿着$S^1$转一圈，$f(x)$将会绕着圆周$S^1$转整数圈。这个整数叫做$f$的\textbf{次数}。两个映射$f_0,f_1:S^1\to S^1$同伦当且仅当它们有相同的次数。通过“次数”建立了从同伦集$[S^1,S^1]$到整数$\mathbb{Z}$的$1-1$对应。
+
+如果我们将所有的映射替换为同伦于它的映射,同伦论研究这种变化下空间和映射保持不变的性质。
+
+下面通过几个例子可以看出我们研究的限制是合理的。首先，在代数拓扑中我们赋予空间$X$和映射$f:X\to Y$一些不变量。比如考虑$X$和$Y$都是欧几里德空间$\mathbb{R}^n$中的单位球面$S^{n-1}=\{(x_1,\cdots,x_n)|\sum x_i^2=1\}$，接着给每一个映射$f:S^{n-1} \to S^{n-1}$定义次数$d(f)$,这是一个整数。通常我们使用的不变量有自然的代数结构，比较典型的情况是它们属于离散集（如整数集）。如果整个过程是连续的，那么同伦的映射（一个映射可以连续形变成另一个）将会有相同的不变量。正如$f\sim g:S^{n-1}\to S^{n-1}$蕴含了$d(f)=d(g)$，实际上代数拓扑中很多经典的不变量都是同伦不变量。
+
+\section{例子}
+第二，我们可以列出一些和同伦论有关的问题。让我叙述下面几个例子：
+
+\begin{itemize}
+	\item[1] 满足某些性质的空间或映射是否存在？
+	\item[2] 有关纤维化的问题。
+	\item[3] 有关配边的问题。
+	\item[4] 其它流形上的问题。
+\end{itemize}
+
+\subsection{扩张与提升}
+\paragraph{扩张问题}下面从类型1开始。令$D^n$是$\mathbb{R}^n$的单位球体，$D^n=\{(x_1,\cdots,x_n)|\sum x_i^2 \leq 1\}$，那么不存在映射$f:D^n \to S^{n-1}$使得它限制在边界$S^{n-1}$上是恒等映射。
+
+我们换一种叙述方式：令$i:S^{n-1}\to D^n$为含入映射，则不存在$f:D^n \to S^{n-1}$使得$fi=1$。
+ 
+\begin{center}
+%\begin{tikzpicture}
+%  \matrix (m) [matrix of math nodes,row sep=2em,column sep=2em,minimum width=1em]
+%  {
+%       &D^n  & \\
+%          \\
+%     S^{n-1} &  &S^{n-1} \\};
+%  \path[-stealth]
+%   (m-3-1) edge node [left] {$i$} (m-1-2)
+%    (m-1-2) edge[dashed] node [right] {$f$} (m-3-3)
+%    (m-3-1) edge node [above] {$1$} (m-3-3);
+%\end{tikzpicture}
+\begin{tikzcd}[column sep=small]
+& D^n  \arrow[dr,dashrightarrow,"f"] & \\
+S^{n-1} \arrow[rr,"1"] \arrow[ur,"i"] & & S^{n-1} 
+\end{tikzcd}
+\end{center}
+
+这个结论直观上是成立的，并且也很容易证明：我们有$i \sim c:S^{n-1}\to D^n$，其中$c$是任意常值映射，如果$f$存在，我们本应该得到$1=fi\sim fc: S^{n-1} \to S^{n-1}$，然而$d(1)=1,d(fc)=0$，矛盾。这个结果的有趣之处在于可以从中容易地得到Brouwer不动点定理（见[14]）。
+
+这个特殊的结果只是一般问题中的一个。“扩张问题”是说给定映射$i:X\to Y,g:X\to Z$，是否存在映射$f:Y\to Z$使得$fi=g$？
+\begin{center}
+\begin{tikzcd}[column sep=small]
+& Y  \arrow[dr,dashrightarrow,"f"] & \\
+X \arrow[rr,"g"] \arrow[ur,"i"] & & Z 
+\end{tikzcd}
+\end{center}
+
+有时候存在这样的$f$，有时候不存在，它取决于$X,Y,Z,i$和$g$。许多问题可以转化成这种形式，并且我们可以解决比上例更难的问题，参见[2]。
+
+如果映射$i$满足合适的条件，那么将$g$换成一个同伦的映射不会改变这个问题的答案，也就是说扩张问题属于同伦论的范围，参考[15,17,27]。
+\paragraph{提升问题}
+还有一类问题和上面的问题相似。“提升问题”是说给定映射$p:Y\to Z,g:X\to Z$，是否存在映射$f:X\to Y$使得$pf=g$？
+\begin{center}
+\begin{tikzcd}[column sep=small]
+& Y  \arrow[dr,"p"] & \\
+X \arrow[rr,"g"] \arrow[ur,dashrightarrow,"f"] & & Z 
+\end{tikzcd}
+\end{center}
+许多问题可以转化成这种形式，例如有定理保证$S^2$上任意一个向量场都有零点。我们令$X=Z=S^2,g=1$，取$Y$是$S^2$的所有非零切向量组成的空间，$Y$中每一个向量都是$S^2$上某点处的切向量，令$p$将$Y$中的向量映为$S^2$上相应的点。此时不存在$f$使得$pf=g$。
+
+同样地我们可以解决比这个例子更难的问题，参见[3]。如果映射$p$满足合适的条件，那么将$g$换成一个同伦的映射不会改变这个问题的答案，也就是说提升问题属于同伦论的范围，参考[15,17,27,28]。
+
+\subsection{纤维化}
+上述问题中$p$满足的合适条件应该是它是一个纤维化。现在我们讨论纤维化：令$p:E\to B$是一个映射，我们称$p$是一个纤维为$F$的\textbf{局部平凡纤维化}，如果存在一个$B$的开覆盖$\{U_\alpha\}$和同胚
+\[\phi_\alpha : F\times U_\alpha \to p^{-1}U_\alpha\]
+使得$p\phi_\alpha(f,u)=u,\forall \alpha,\forall f\in F,\forall u\in U_\alpha$。也就是$p$在局部必须形如一个乘积空间到分量的投影映射。一个需要谨记的例子:$E$是M\"{o}bius带，$B$是圆周，$p$将M\"{o}bius带的经线映成赤道圆周上的点。
+
+许多纤维化的例子来源于微分几何：如果有一个$m$维光滑流形$M$，则切丛是$M$上的一个纤维化，其纤维$F=\mathbb{R}^m$。相似地我们可以考虑某些特定形式的张量丛。如果一个子流形$M$嵌入到更大的流形$N$中，并且带有黎曼度量结构，则我们可以考虑$M$在$N$中的法丛，它也是$M$上的一个纤维化。由于这些原因，研究光滑流形的拓扑学家也应该是使用纤维化的专家。
+
+现在给定$B$和$F$，我们希望可以分类所有$B$上纤维是$F$的纤维丛。这个问题可以化为一个同伦论问题[28]并且在特定情形下答案可以具体地计算出来。
+
+\subsection{配边}
+接下来我要谈谈配边理论，它最早由Thom提出[29]：如果存在一个$m+1$维带边紧流形，其边界是两个$m$维光滑紧流形$M$和$M'$的不交并，则我们称$M,M'$\textbf{配边}(cobordant)。配边是一个等价关系，可以把流形划分成配边等价类。随之而来的问题是计算有多少配边类：利用纤维丛的理论，Thom发现了如何将这一问题转化为同伦论问题，并且他还解决了转化后的同伦论问题。从那时起，Thom的想法应用在很多相关问题上[4,5,8,12,20,21,33]。现在配边类型的问题的解答已经是标准的练习题了。
+\subsection{流形}
+最后，在流形的研究中，若涉及子流形，相交理论等问题，同伦论可能一直是不可或缺的工具，参考[26,34]。
+
+\section{方法}
+到目前为止我们主要在谈论问题，现在让我讲点方法。假设有一个问题，比如一个映射的存在问题，可能出现的情况之一是它非常好解我们可以算出所有的东西。如果问题不能完美解答，那么通常我们面临两种选择：
+
+\begin{itemize}
+  \item 如果我们猜测该映射存在，那么我们试图寻找一个具体的几何构造。
+  \item 如果我们猜测该映射不存在，那么我们尝试去寻找拓扑不变量来说明这样的映射不存在。
+\end{itemize}
+
+对于具体的几何构造，同伦论中出现了很多这样的构造。在此我们提几个构造：Whitehead乘积[16,36]，Hopf构造[35]和Toda bracket[30,32]。
+
+而对于拓扑不变量来说，许多不变量可以通过具体化同伦集$[X,Y]$来得到。因此接下来让我们回到这些集合$[X,Y]$。有时候问题就在于计算集合$[X,Y]$，事实上这也是我们通常需要做的。现在至少让我们看看我们对它有哪些了解。
+\subsection{基本特点}
+\paragraph{自然性}
+首先，“自然性”。给定两个映射$f:X\to Y$与$g:Y\to Z$，我们可以合成它们得到$gf:X\to Z$ 。$gf$的同伦类只依赖于$f$和$g$的同伦类。因此$f$诱导了函数
+\[f^*:[Y,Z] \longrightarrow [X,Z],\]
+\[[g]\mapsto [gf]\]
+$g$诱导了函数
+\[g_*:[X,Y] \longrightarrow [X,Z],\]
+\[[f]\mapsto [gf]\]
+\paragraph{结构}
+第二，我们通常赋予$[X,Y]$一些代数结构。在许多情形下，我们将$[X,Y]$视为一个群。比如$X=S^1$时，假定$x_0,y_0$分别是$X,Y$的基点，并且我们只考虑映射和同伦都是保持基点的，这时我们将$[S^1,Y]$做成一个群：保持基点的函数$f:S^1\to Y$是$Y$中一条起点终点都是$y_0$的闭道路；给定两个这样的道路$f,g$,我们定义它们的乘积为一条首先沿着$f$走再沿着$g$走的闭道路，于是我们得到了经典的\textbf{基本群}$\pi_1(Y)$。同样地，当$X=S^n$时，我们得到了\textbf{同伦群}$\pi_n(Y)=[S^n,Y]$。比如$\pi_n(S^n)=\mathbb{Z}$。
+\paragraph{Eilenberg-MacLane空间}
+下面我要讨论\textbf{Eilenberg-MacLane空间}。给定一个交换群$\pi$和一个整数$n$，如果空间$Y$满足
+\begin{equation*}
+\pi_r(Y)=
+\left\{
+\begin{aligned}
+\pi ,& \mbox{~~若~~} r=n \\
+0 ,&\mbox{~~若~~} r\neq n,r>0
+\end{aligned}
+\right.
+\end{equation*}
+则我们称$Y$是一个$(\pi,n)$型的Eilenberg-MacLane空间。对任何$\pi$和$n$都存在一个$(\pi,n)$型空间，有一些是自然出现的，比如$S^1$是一个$(\mathbb{Z},1)$型空间，但大多数是需要人为构造的。
+
+现在考虑$[X,Y]$，其中$X$满足一些合理的限制，$Y$是一个$(\pi,n)$型空间,这样得到的群不依赖于$Y$的选取，事实上它正是经典的\textbf{上同调群}$H^n(X;\pi)$（最初的定义与之相去甚远）。例如，可以得到
+\begin{equation*}
+H^n(S^r;\pi)=[S^r,Y]=
+\left\{
+\begin{aligned}
+\pi ,& \mbox{~~若~~} r=n \\
+0 ,&\mbox{~~若~~} r\neq n,r>0
+\end{aligned}
+\right.
+\end{equation*}
+\subsection{更多的性质}
+到这儿有点跑题了，我需要讲点$[X,Y]$更多的性质。
+\paragraph{纤维化}给定一个纤维化$p:E\to B$，令$i:F\to E$是$B$的基点上的纤维到$E$的单射,从而我们得到以下序列
+
+\begin{center}
+\begin{tikzcd}
+{[X,F]} \arrow[r,"i_*"] & {[X,E]} \arrow[r,"p_*"] &{[X,B]}.
+\end{tikzcd}
+\end{center}
+
+在$[X,B]$中有一个特别的元素$0$,即基点处常值映射的同伦类。我们假设$X$满足适当的条件，则有基本定理保证了这个序列是\textbf{正合}的。事实上在适当条件下上面的短正合列诱导了长正合列：比如
+
+\begin{center}
+\begin{tikzcd}
+\cdots \arrow[r]& \pi_n(F) \arrow[r,"i_*"] & \pi_n(E) \arrow[r,"p_*"] &\pi_n(B) \arrow[r,"\partial"]& \pi_{n-1}(F)\arrow[r,"i_*"] & \cdots.
+\end{tikzcd}
+\end{center}
+
+
+这个序列在每个群处都是正合的。
+
+这样的正合序列在计算和证明中非常有帮助。我们发现了一小部分自然出现的纤维化，比如纤维是$\mathbb{Z}$的纤维化$\mathbb{R}\to S^1$，还有纤维是$S^1$的纤维化$S^3\to S^2$。读者可以利用这些自然的纤维化来得到一些结果如$\pi_3(S^2)=\mathbb{Z}$。然而这些自然的纤维化很快就不够用了，因此我们需要看看如何人为构造。
+\paragraph{双角锥理论}
+我将从双角锥理论(suspension-theory)说起。Freudenthal最先发现如果$r< n-1$时则 $\pi_{n+r}(S^n)\cong \pi_{n+r+1}(S^{n+1})$。这是同伦论中一些定理的源头。当维数$n$充分大时，我们会遇到很多与$n$无关的现象。这样的现象称作\textbf{稳定}的，与之相反的现象称为不稳定的。举例来说，配边理论导致的同伦论问题就是稳定的。
+
+Serre和G.W.Whitehead通过下列手段来研究稳定同伦[24,35]：给定空间$X$，我们考虑函数空间$LX=\{l:[0,1]\to X|l(0)=x_0\in X \mbox{是基点}\}$，则有投射$p:LX\to X$，$p(l)=l(1)$（取道路的终点）。这样的投射是一个纤维化（在适当意义下），它的纤维是\textbf{圈空间}\footnote{loop-space} $\Omega X=\{l:[0,1]\to X|l(0)=l(1)=x_0\}$
+。容易看出$\pi_r(\Omega X)\cong \pi_{r+1}(X)$，所以我们可以通过比较$S^n$和$\Omega S^{n+1}$来证明双角锥定理。
+
+James和Toda做得更多[18,19,31]。James的一个定理说如果$n$是奇数，则存在一个纤维化$F\to E\to B$，其中$F=S^n,E=\Omega S^{n+1},B=\Omega S^{2n+1}$。从而我们得到在所有维数都正合的序列
+
+\begin{center}
+\begin{tikzcd}
+\cdots \arrow[r]& \pi_r(S^n) \arrow[r,"i_*"] \arrow[dr] & \pi_r(\Omega S^{n+1}) \arrow[r,"p_*"] \arrow[d,equal]&\pi_r(\Omega S^{2n+1}) \arrow[r,"\partial"] \arrow[d,equal]& \pi_{r-1}(S^n)\arrow[r] & \cdots \\
+& &\pi_{r+1}(S^{n+1}) \arrow[r] &\pi_{r+1}(S^{2n+1}) \arrow[ur]
+\end{tikzcd}
+\end{center}
+James和Toda另一个定理也是同样的道理。
+
+这个方法连同具体的几何构造是计算具体问题的十分有效的手段[32]。例如如果一个人被迫去计算$\pi_{25}(S^2)$，这将是首选的方法。然而另一方面它也有一些缺点：
+\begin{enumerate}
+  \item 它更适合于计算而不适合于发现一般的系统性现象。
+  \item 如果对稳定现象感兴趣（某种意义下这是较简单的情形），那么这种方法只有首先费力地做完不稳定的情况才能得到稳定的情况。
+  \item 尽管“低级”的双角锥理论（适用于维数有限制的情形）对任何空间$X$都适用，然而“高级”的对所有维数都适用的双角锥理论限制在球面。从下面这个问题就可以看出我们的无知：Moore空间是只有一个非平凡上同调群的空间（如球面），那么可以模仿Tada的方法用Moore空间（如群$\mathbb{Z}_p$）代替球面得到正合列么？
+\end{enumerate}
+\paragraph{余纤维化}
+在这一部分的开端，我提到有一个纤维化
+\begin{tikzcd}
+F \arrow[r,"i"] & E \arrow[r,"p"] &B
+\end{tikzcd}，我们可以得到正合列
+
+\begin{center}
+\begin{tikzcd}
+{[X,F]} \arrow[r,"i_*"] & {[X,E]} \arrow[r,"p_*"] &{[X,B]}.
+\end{tikzcd}
+\end{center}
+
+下面是一个对偶的情形。给定映射$f:A\to X$，我们可以通过$f$把锥$CA$和$X$连接起来构造一个空间$M=X\cup_f CA$。那么我们可以得到下列正合列
+
+\begin{center}
+\begin{tikzcd}
+{[A,Y]}  & {[X,Y]} \arrow[l,"f^*"{above}] &{[M,Y]}\arrow[l,"i^*"{above}].
+\end{tikzcd}
+\end{center}
+在适当的条件下短正合列诱导了长正合列：比如
+
+\begin{center}
+\begin{tikzcd}
+\cdots & H^n(A;\pi) \arrow[l] & H^n(X;\pi)\arrow[l,"f^*"{above}] &H^n(M;\pi)\arrow[l,"i^*"{above}]  & H^{n-1}(A;\pi)\arrow[l,"\delta"{above}] & \cdots \arrow[l].
+\end{tikzcd}
+\end{center}
+这个序列在每个群处都正合。
+
+为了保持术语，我们称
+
+\begin{center}
+\begin{tikzcd}
+A \arrow[r,"f"] & X \arrow[r,"i"] &X\cup_f CA
+\end{tikzcd}
+\end{center}
+
+为\textbf{余纤维化}。这个概念非常重要，因为很多空间可以通过这种方式构造出来。比如，从球面出发通过反复做余纤维化得到的一类空间叫做\textbf{$CW$-复形}[37]。正是由于自然出现的余纤维化非常多才使得我们可以有效地运用上同调来进行计算。
+
+\paragraph{上同调理论}起初，Eilenberg和Steenrod给出了上同调理论的公理化，其中包含了上面的正合列作为一个关键公理[14]。后来出现了所谓的广义上同调理论，它们除了一个Eilenberg-Steenrod公理不满足外其它都满足[13]。比如若我们从$X$上的实或复向量丛出发，可以构造群$K^n(X)$[7];利用这些群可以非常高效地计算[3,4]。所有这些广义上同调理论都具有形式$[X,Y]$，其中$Y$固定。事实上在合理假设下，我们可以得知一个函子是从$X$到$[X,Y]$这种形式的充要条件[10]。
+
+\paragraph{谱序列}
+我们已经讨论了一个纤维化的同伦群和一个余纤维化的上同调群，并得到了正合列。我们也可以做一些不一样的事情，看看一个纤维化的上同调群或者一个余纤维化的同伦群。在这两种情形下我们得到了更加复杂的东西---\textbf{谱序列}。下面我们开始讨论：从一个映射
+\[f:A\longrightarrow X\]
+可以得到正合上同调序列。现在假设有一个空间和映射的无限长序列
+
+\begin{center}
+\begin{tikzcd}
+X_0 \arrow[r,"f_0"] & X_1 \arrow[r,"f_1"] &X_2 \arrow[r]&  \cdots \arrow[r] & X_n \arrow[r,"f_n"] & X_{n+1} \arrow[r]& \cdots
+\end{tikzcd}
+\end{center}
+我们可以得到许多合成
+\[f_nf_{n-1}\cdots f_{n-r},\]
+每一个这样的合成都有一个正合上同调序列。于是我们得到了非常多的正合列，并且可以用适当的方式放在一起。不过还是有方法可以追溯所有的信息并且浓缩成可以利用的形式，这种结构叫做谱序列。比如若
+\begin{tikzcd}
+F \arrow[r,"i"] & E \arrow[r,"p"] &B
+\end{tikzcd}
+是纤维化，那么上同调群$H^*(F),H^*(E)$和$H^*(B)$可以通过一个谱序列联系起来[23]。
+
+谱序列是一个有点复杂的结构，并且不能保证计算的实际性，但是专家往往可以做到。
+
+我们大体上的想法就是下面要说的：为了计算$[X,Y]$，我们试着将$X$分解成一个余纤维化序列，使得在上同调观点下连续的因子是简单的；并且试着将$Y$分解成一个纤维化序列，使得在同伦观点下连续的因子是简单的。对$X$的分解总是可以的，对$Y$的分解在Postnikov的做法下也可以完成[22]。利用法国学派[11]的方法，我们总是有足够多的纤维化；但是由于它们是大型函数空间的纤维化，问题在于识别包含在其中的空间，这通常需要上同调运算来得到。
+
+利用这些方法，Serre证明了一些非常有用的一般性定理[25]。比如他的定理确保了在适当合理假设下，$[X,Y]$是有限生成群。我们还想要知道$[X,Y]$是否有限，$[X,Y]$的阶中哪些素数会出现，我们还期望可以计算$[X,Y]\otimes \mathbb{Q}$。
+
+由于一些原因，经典的法国学派方法通过变形后很有用[1,20]。最近的一些工作表明通过$K$-理论来计算是有效的，可以将虽然相对简单但不是Eilenberg-MacLane空间的乘积的因子分解。
+\section{戏里戏外}
+当然，做这样的报告是非常冒险的，但是同伦论中大多数基本原理是广为人知的。最近难以预料的进展是Bott周期性定理[6,9]，还有随之而来利用$K$-理论有效计算同伦群的可能性。很有可能大自然还有更多的锦囊妙计，如果是这样，没有人知道去哪里寻找它们。如果没有它们，同伦论的前途就在于  更加复杂和费劲地利用基本原理或者在同伦论之外应用它。在同伦论之中，对我来讲那些最激动人心的定理在于揭示系统现象---自然界存在的有序模式。当你注视并沉思着表格化的数据时，有序模式却很难被发现。然而还是有一些结论使得我们在这个方向上存有希望。而在同伦论之外，研究光滑流形已经使用了许多同伦论方法，而任何带有几何风格的学科都是同伦论可以大显身手的候选者。
+
+{\begin{flushleft}
+  曼彻斯特大学，
+
+曼彻斯特，英国
+\end{flushleft}}
+
+\section{参考文献}
+[1] Adams J. F., On the structure and applications of the Steenrod algebra, Comment. Math. Helvetia, 32 (1958), 180-214; MR 20 (1968), 2711. 
+
+[2] Adams J. F., On the non-existence of elements of Hopf invariant one, Annals of Math., 72 (1960), 20-104; MR 25 (1963), 4530. 
+
+[3] Adams J. F., Vector fields on spheres, Annals of Math., 76 (1962), 603-632; MR 25 (1963), 2614. 
+
+[4] Anderson D.W., Brown E. H.,Peterson F. P., On spin cobordism, to appear. 
+
+[5] Atiуah M. F., Bordism and cobordism, Proc. Cambridge Phil. Soc, 57 (1961), 200-208; MR 23A (1962), 4150. 
+
+[6] Atiyah M. F., Воtt R., On the periodicity theorem for complex vector bundles, Acta Math., 112 (1964), 229-247; MR 31 (1966), 2727. 
+
+[7] Atiyah M. F.,Hirzebruch F., Vector bundles and homogeneous spaces, Proc. Symposia in Pure Math., Vol. 3, American Math. Soc. (1961), 7-38; MR 25 (1963), 2617. 
+
+[8]俄语不认识 
+
+[9] Bott R., The stable homotopy of the classical groups, Annals of Math., 70 (1959), 313-337; MR 22 (1961), 987. 
+
+[10] Brown E. H., Cohomology theories, Annals of Math., 75 (1962), 467-484; MR 25 (1963), 1551. 
+
+[11] Cartan H., Serre J.-P., Espaces fibres et groupes d'homotopie, I, II. C.R. Acad. Sei. Paris, 234 (1952), 288-290, 393-395; MR 13 (1952), 675. 
+
+[12] Conner P. E., Floyd E. E., Differentiable periodic maps, Springer, 1964; MR 31 (1966), 750. 
+
+[13] Dold A., Halbexacte homotopie Funktoren, Springer, 1966. 
+
+[14] Eilenberg S., Steenrod N. E., Foundations of algebraic topology, Princeton, 1952; MR 14 (1953), 398. 
+
+[15] Hilton P. J., An introduction to homotopy theory, Cambridge, 1953; MR 15 (1954), 52. 
+
+[16] Hilton P. J., On the homotopy groups of the union of spheres,  London Math. Soc, 30 (1955), 154-172; MR 16 (1955), 847. 
+
+[17] Hu S.-T., Homotopy theory, Academic Press, 1959; MR 21(1960), 3186. 
+
+[18] James I. M., The suspension triad of a sphere, Annals of Math., 63 (1956), 407-429; MR 18 (1957), 58. 
+
+[19] James I. M., On the suspension sequence, Annals of Math., 65 (1957), 74-107; MR 18 (1957), 662. 
+
+[20] Mi1nor J. W., On the cobordism ring Q and a complex analogue, I, American Jour. Math., 82 (1960), 505-521; MR 22 (1961), 9975. 
+
+[21] 俄语不认识 
+
+[22] 俄语不认识
+
+[23] Serre J.-P., Homologie singulière des espaces fibres, Annals of Math., 54 (1951), 425-505; MR 13 (1952), 574. 
+
+[24] Serre J.-P.,Sur la suspension de Freudenthal, С.R.Acad. Sei. Paris, 234 (1952), 1340-1342; MR 13 (1952), 675. 
+
+[25] Serre J.-P., Groupes d'homotopie et classes de groupes abeliens, Annals of Math., 58 (1953), 258-294; MR 15 (1954), 548. 
+
+[26] Smale S., A survey of some recent developments in differential topology, Bull American Math. Soc, 69 (1963), 131-145; MR 26 (1963), 1896. 
+
+[27] Spanier E.H. Algebraic topology, McGraw-Hill, 1966. 
+
+[28] Steenrod N.E., The topology of fibre bundles, Princeton, 1951; MR 12 (1951), 522. 
+
+[29] Thorn R., Quelques proprietes globales des variétés differentiables, Comment. Math. Helvetia, 28 (1954), 17-86; MR 15 (1954), 890.
+
+[30] Toda H., Some relations in homotopy groups of spheres, Jour. Inst. Polytech. Osaka City Univ., 2 (1952), 43-82; MR 14 (1953), 572. 
+
+[31] Toda H., On the double suspension E2, Jour. Inst, Polytech. Osaka City Univ., 7 (1956), 103-145; MR 19 (1958), 1188. 
+
+[32] Toda H., Composition methods in homotopy groups of spheres, Princeton, 1962; MR 26 (1963), 777. 
+
+[33] Wall C.T.C, Determination of the cobordism ring, Annals of Math., 72 (1960), 292-311; MR 22 (1961), 11403. 
+
+[34] Wall C.T.C, Topology of smooth manifolds, Jour» London Math. Soc, 40 (1965), 1-20; MR 30 (1965), 2524. 
+
+[35] Whitehead G.W., On the Freudenthal theorems, Annals of Math., 57 (1953), 209-22; MR 14 (1953), 1110. 
+
+[36] Whitehead J.H.C, On adding relations to homotopy groups, Annals of Math., 42 (1941), 409-428; MR 2 (1941), 323. 
+
+[37] Whitehead J. H. C, Combinatorial homotopy, Bull. American Math. Soc, 55 (1949), 213-245; MR 11 (1950), 48.
+
+{\begin{flushright}
+  \kaishu\zihao{-4}张浩\footnote{中国科学院大学数学科学学院，E-mail:529666596@qq.com}译于中科院大学雁栖湖校区\\
+  2014.12.02\\
+  2014.12.05\\
+  2015.04.11  修订
+\end{flushright}}
+\end{document}
