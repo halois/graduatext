@@ -1,0 +1,233 @@
+% !mode::"TeX:UTF-8"
+%!TEX program = xelatex
+\documentclass[10pt]{beamer}
+\usepackage{ctex} 
+%\usepackage{beamerthemeshadow} %使用 shadow 风格
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm} % Required for bold math symbols (used in the footer of the slides)
+\usepackage{graphicx} % Required for including images in figures
+\usepackage{tikz} % Required for colored boxes
+\usetikzlibrary{matrix}
+\usetikzlibrary{cd}
+\usepackage{tikz-cd}
+\usepackage{lastpage} % For printing the total number of pages at the bottom of each 
+%\usepackage{tocstyle} % Required for customizing the table of contents
+
+
+% There are many different themes available for Beamer. 
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%\usetheme{AnnArbor}   %蓝色和黄色 
+% \usetheme{Antibes}  %黑色蓝色 
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}  %浅蓝色
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}  %黑蓝 没有logo
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}  %蓝色系  
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+\setlength{\parindent}{0em}
+
+\mode<presentation>
+{
+\usetheme{Malmoe}
+\useinnertheme{rounded}
+ \usecolortheme{orchid}
+\usefonttheme{serif}
+\setbeamercovered{transparent}  
+}
+% \setbeamertemplate{frametitle}
+% {\vspace*{5pt}
+%   \textbf{\insertframetitle}\\[-5pt]
+%   {\color{magenta}\dotfill}
+%   \vskip3pt\par
+% }
+
+
+\title{数量关系比例模块---工程问题}
+\author{宁颖丹}
+\date{2015年12月}
+
+% \logo{\includegraphics[width=1.3cm,height=1.3cm]{logo-CAS}}
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection]   %,currentsubsection
+%  \end{frame}
+%}
+
+% Let's get started
+\begin{document}
+\small
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% \begin{frame}{目录}
+%   \tableofcontents
+%   % You might wish to add the option [pausesections]
+% \end{frame}
+
+% Section and subsections will appear in the presentation overview
+% and table of contents.
+% \section{比例问题}
+% \begin{frame}{比例问题}
+
+%    工程问题
+%    \newline
+%    工程问题变形 
+
+
+% \end{frame}
+
+\section{工程问题}
+\begin{frame}{工程问题}
+关键： 设整或$1$
+\[\mbox{工作量}=\mbox{工作效率}\times \mbox{时间}\]
+ \begin{block}{类型}
+  \begin{itemize}
+    \item[1] 比例关系
+    \item[2] 合作工作
+    \item[3] 轮流工作 
+  \end{itemize}
+\end{block} 
+
+
+\end{frame}
+\begin{frame}{1.比例关系}
+\begin{block}{例1}
+  修一条公路，每人每天工作效率同，计划180人一年完成，工作4个月，特殊情况要求提前2个月完成，需要增加工人多少名？\\
+  A.50\quad
+  B.65\quad
+  C.70\quad
+  {\color{red}D.60}
+\end{block}
+\begin{alertblock}{解答}
+  \[12-4=8 \quad   8-2=6\]
+$$180\times \frac{8}{6}=240 \quad 240-180=60$$
+\end{alertblock}
+\end{frame}
+\begin{frame}{2.合作工作}
+\begin{block}{例2}
+  (2014.75)甲乙共同完成A,B两个项目。甲单独完成A需13天，完成B需7天；乙单独完成A需11天，B需9天。若两对合作用最短时间完成两个项目，则最后一天两队需要共同工作多长时间就可以完成任务？\\
+  A. 1/12天 \quad   B.1/9天\quad     C.1/7天\quad      {\color{red}D.1/6天}
+\end{block}
+\begin{center}
+  \begin{tabular}{c|c|c}
+ & A&B\\
+ \hline
+ 甲&13天&7天\\
+ 乙&11天&9天
+\end{tabular}
+\end{center}
+
+最短时间：甲完成B，乙完成A，再共同完成A．
+\begin{alertblock}{解答}
+设A总量为1,B结束后A的工作量还有4/11, 甲乙一起完成A效率为(1/13+1/11),
+需要的时间为4/11/ (1/13+1/11)=13/6 最后一天需要共同工作1/6。
+\end{alertblock}
+\end{frame}
+\begin{frame}{3.轮流工作}
+\begin{block}{例3}
+  一条隧道甲单独20天完成，乙单独要10天，如果甲先挖1天，乙接替甲挖1天，再由甲接替乙挖一天，两人如此交替工作。那么，挖完这条隧道共用多少天？\\
+{\color{red}A.14}    \quad        B.16  \quad       C .15  \quad        D.13
+\end{block}
+\begin{alertblock}{解答}
+总量为20，甲乙效率分别为1,2，每两天工作量为3，
+$20=3\times6+1+1$,即 甲、乙先各干6天，然后甲干1天，剩下的工程量为1，乙用半天完成，总时间为$6\times2+1+1=14$天。
+
+\end{alertblock}
+\end{frame}
+
+\section{工程问题变形}
+\begin{frame}{工程问题变形}
+\begin{block}{类型}
+  \begin{itemize}
+  \item[1] 水管问题
+  \item[2] 牛吃草问题 
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}{1.水管问题}
+\begin{block}{例4}
+  同时打开泳池A、B两个水管，加满水需$1.5h$且A比B多进水$180m^3$,若单独打开A，加满水需2小时40分钟。则B管每分钟进水多少$m^3$?\\
+   A.6  \quad  B.7  \quad  C.8  \quad D.9
+
+\end{block}
+\begin{alertblock}{解答}
+90分钟A+90分钟B=160分钟A\\
+A,B效率比90:70=9:7
+
+\end{alertblock}
+\end{frame}
+\begin{frame}{2.牛吃草问题}
+草不断生长速度不变，牛不断吃草切每头牛每天吃的量同，供不同数量牛吃，每天消耗草量就不同。
+\newline
+\newline
+初始草量=(吃草速度1$-$草生长速度)$\times$时间1\\
+ \quad \quad \quad \quad \      =(吃草速度2$-$草生长速度)$\times$时间2
+\newline
+\newline
+草生长速度=(吃草速度1$\times$时间1$-$吃草速度2$\times$时间2)/(时间1$-$时间2)
+\newline
+\newline
+初始草量=(吃草速度$-$草生长速度)$\times$时间
+\end{frame}
+\begin{frame}{2.牛吃草问题}
+\begin{block}{例5}
+  (2013.68)某河段沉积和沙供80人连续开采6个月或60人连续开采10个月，如果要保证改河段河沙不被开采枯竭，问最多可供多少人进行连续不间断的开采？(假设河段河沙沉积速度相对稳定) \\
+   A.25     \quad   {\color{red}B.30}    \quad C.35    \quad  D.40
+\end{block}
+\begin{alertblock}{解答}
+河沙每月沉积量$(60\times 10-80\times 6)/(10-6)=30$
+开采量不能大过河沙沉积量，所以最多30人。
+\end{alertblock}
+\end{frame}
+\section{总结}
+\begin{frame}{总结}
+工作总量$=\mbox{时间}_1\times \mbox{效率}_1+\mbox{时间}_2\times \mbox{效率}_2+\cdots+\mbox{时间}_n\times \mbox{效率}_n$
+\newline
+\newline
+进水量=（进水速度$-$排水速度）$\times$ 时间
+\newline
+\newline
+生长速度$=\frac{(\mbox{速度}_1\times \mbox{时间}_1-\mbox{速度}_2\times \mbox{时间}_2)}{(\mbox{时间}_1-\mbox{时间}_2)}$
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{center}
+
+  \Huge{谢谢大家！}
+\end{center}
+
+\end{frame}
+
+\end{document}
